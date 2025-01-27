@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 # CORS: Allow credentials and specific frontend URLs for both dev and prod
-CORS(app, supports_credentials=True, origins=['https://jtrapp18.github.io/j-n-cookies-fe', 'http://localhost:3000'])
+CORS(app, supports_credentials=True, origins=['https://jtrapp18.github.io/j-n-cookies-fe', 'http://127.0.0.1:5173'])
 
 # Set secret key and session cookie settings
 secret_key = secrets.token_urlsafe(24)
