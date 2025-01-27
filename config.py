@@ -13,9 +13,6 @@ load_dotenv()
 # Setup to serve React build
 app = Flask(
     __name__,
-    static_url_path='/',
-    static_folder='../client/dist',
-    template_folder='../client/dist'
 )
 
 app.config['SECRET_KEY'] = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'

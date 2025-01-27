@@ -11,10 +11,6 @@ from flask_restful import  Resource
 # BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # DATABASE = os.environ.get("DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
 
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
 @app.before_request
 def check_if_logged_in():
     if not session.get('user_id') \
