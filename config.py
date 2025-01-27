@@ -1,5 +1,6 @@
 import os
 import binascii
+import secrets
 from flask import Flask
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -15,9 +16,21 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-app.config['SECRET_KEY'] = os.urandom(24)
+# CORS: Allow credentials and specific frontend URLs for both dev and prod
+CORS(app, supports_credentials=True, origins=['https://jtrapp18.github.io/j-n-cookies-fe', 'http://localhost:3000'])
+
+# Set secret key and session cookie settings
+secret_key = secrets.token_urlsafe(24)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', secret_key)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SECURE'] = True
+
+# Set cookie security settings based on environment
+if os.getenv('FLASK_ENV') == 'production':
+    app.config['SESSION_COOKIE_SECURE'] = True  # Secure cookies in production
+else:
+    app.config['SESSION_COOKIE_SECURE'] = False  # In dev, use non-secure cookies
+
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Helps with cross-site requests
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_PUBLIC_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
