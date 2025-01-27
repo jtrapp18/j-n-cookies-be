@@ -1,6 +1,7 @@
 import os
 import binascii
 from flask import Flask
+from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_restful import Api
@@ -11,9 +12,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Setup to serve React build
-app = Flask(
-    __name__,
-)
+app = Flask(__name__)
+CORS(app)
 
 app.config['SECRET_KEY'] = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_PUBLIC_URL')
