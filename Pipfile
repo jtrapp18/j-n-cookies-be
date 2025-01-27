@@ -21,7 +21,5 @@ flask-bcrypt = "1.0.1"
 faker = "15.3.2"
 gunicorn = "23.0.0"
 
-[dev-packages]
-
 [requires]
 python_full_version = "3.8.13"
