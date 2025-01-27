@@ -13,9 +13,11 @@ load_dotenv()
 
 # Setup to serve React build
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
-app.config['SECRET_KEY'] = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_PUBLIC_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
